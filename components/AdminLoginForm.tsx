@@ -28,7 +28,7 @@ export function AdminLoginForm() {
   return (
     <form onSubmit={onSubmit} className="white-premium mx-auto grid max-w-xl gap-4 rounded-[2rem] p-8 shadow-panel">
       <h1 className="text-4xl font-black leading-none">Admin Login</h1>
-      <p className="leading-7 text-slate-600">Use `ADMIN_EMAIL` and `ADMIN_PASSWORD` from the environment. Sessions are stored in an HTTP-only cookie.</p>
+      <p className="leading-7 text-slate-600">Use `ADMIN_USERNAME` or `ADMIN_EMAIL` with `ADMIN_PASSWORD` from the environment. Sessions are stored in an HTTP-only cookie.</p>
       <input name="email" type="email" required className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-midnight outline-none focus:border-navy-700" placeholder="Admin email" />
       <input name="password" type="password" required className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-midnight outline-none focus:border-navy-700" placeholder="Password" />
       <button type="submit" className="rounded-2xl bg-midnight px-6 py-4 font-black text-white" disabled={status === "sending"}>

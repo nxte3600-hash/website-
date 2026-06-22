@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CalendarDays, Clock3, UserRound } from "lucide-react";
+import { ArrowLeft, CalendarDays, Clock3, Newspaper, UserRound } from "lucide-react";
 import { BlogCard } from "@/components/BlogCard";
 import { FuturisticCTA } from "@/components/FuturisticCTA";
 import { VideoHero } from "@/components/VideoHero";
-import { blogPosts, getBlogPost } from "@/lib/blogPosts";
+import { blogPosts } from "@/lib/blogPosts";
+import { getPublicBlogPost, listPublicBlogPosts } from "@/lib/blogStore";
 import { getVideoAsset } from "@/lib/videoAssets";
+
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -14,7 +17,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getPublicBlogPost(slug);
   return {
     title: post ? `${post.title} | NXT Journal` : "Blog | NXT Mobility",
     description: post?.excerpt
@@ -23,12 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await getPublicBlogPost(slug);
+  const posts = await listPublicBlogPosts();
   const video = getVideoAsset("blog");
 
   if (!post) notFound();
 
-  const related = blogPosts.filter((item) => item.slug !== post.slug).slice(0, 3);
+  const related = posts.filter((item) => item.slug !== post.slug).slice(0, 3);
 
   return (
     <main className="bg-midnight text-white">
@@ -87,7 +91,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           <h2 className="mb-8 text-5xl font-black leading-none">Related EV insights</h2>
           <div className="grid gap-5 md:grid-cols-3">
             {related.map((item) => (
-              <BlogCard key={item.slug} icon={item.icon} title={item.title} tag={item.category} copy={item.excerpt} href={`/blog/${item.slug}`} />
+              <BlogCard key={item.slug} icon={"icon" in item ? item.icon : Newspaper} title={item.title} tag={item.category} copy={item.excerpt} href={`/blog/${item.slug}`} />
             ))}
           </div>
         </div>

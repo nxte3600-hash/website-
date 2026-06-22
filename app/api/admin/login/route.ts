@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { createAdminToken, setAdminCookie } from "@/lib/adminAuth";
+import { adminConfigured, adminUsername, createAdminToken, setAdminCookie } from "@/lib/adminAuth";
 
 export async function POST(request: Request) {
   const { email, password } = await request.json();
-  if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
+  if (!adminConfigured()) {
     return NextResponse.json({ ok: false, reason: "Admin credentials are not configured" }, { status: 503 });
   }
-  if (email !== process.env.ADMIN_EMAIL || password !== process.env.ADMIN_PASSWORD) {
+  if (email !== adminUsername() || password !== process.env.ADMIN_PASSWORD) {
     return NextResponse.json({ ok: false, reason: "Invalid credentials" }, { status: 401 });
   }
   await setAdminCookie(createAdminToken(email));

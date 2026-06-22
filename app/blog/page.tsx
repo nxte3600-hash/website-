@@ -4,11 +4,15 @@ import { FuturisticCTA } from "@/components/FuturisticCTA";
 import { MotionSection } from "@/components/MotionSection";
 import { StatsStrip } from "@/components/StatsStrip";
 import { VideoHero } from "@/components/VideoHero";
-import { blogCategories, blogPosts } from "@/lib/blogPosts";
+import { blogCategories } from "@/lib/blogPosts";
+import { listPublicBlogPosts } from "@/lib/blogStore";
 import { getVideoAsset } from "@/lib/videoAssets";
 
-export default function BlogPage() {
-  const featured = blogPosts[0];
+export const dynamic = "force-dynamic";
+
+export default async function BlogPage() {
+  const posts = await listPublicBlogPosts();
+  const featured = posts[0];
   const video = getVideoAsset("blog");
 
   return (
@@ -39,7 +43,7 @@ export default function BlogPage() {
         <div className="mx-auto max-w-7xl">
           <StatsStrip
             stats={[
-              { value: String(blogPosts.length), label: "Useful articles", detail: "Battery, finance, service, route choice and sustainability" },
+              { value: String(posts.length), label: "Useful articles", detail: "Battery, finance, service, route choice and sustainability" },
               { value: "6", label: "Content tracks", detail: "Technology, charging, manufacturing, sustainability, buying, updates" },
               { value: "B2B", label: "Dealer value", detail: "Articles can support showroom conversations" },
               { value: "SEO", label: "Growth", detail: "Insights create discoverable product authority" }
@@ -75,10 +79,10 @@ export default function BlogPage() {
       <section className="relative overflow-hidden px-4 pb-20 sm:px-6 lg:px-8">
         <div className="energy-field absolute inset-0 opacity-35" />
         <div className="relative mx-auto grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {blogPosts.map((post, index) => (
+          {posts.map((post, index) => (
             <BlogCard
               key={post.slug}
-              icon={post.icon}
+              icon={"icon" in post ? post.icon : Newspaper}
               title={post.title}
               tag={post.category}
               copy={post.excerpt}

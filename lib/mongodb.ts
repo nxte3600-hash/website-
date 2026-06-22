@@ -2,6 +2,7 @@ import { MongoClient, type Db, ObjectId } from "mongodb";
 
 type GlobalMongo = typeof globalThis & {
   _nxtMongoClientPromise?: Promise<MongoClient>;
+  _nxtMongoSetupPromise?: Promise<void>;
 };
 
 const globalMongo = globalThis as GlobalMongo;
@@ -22,7 +23,9 @@ export async function getMongoDb(): Promise<Db> {
   }
 
   const client = await globalMongo._nxtMongoClientPromise;
-  return client.db(process.env.MONGODB_DB || "nxt_mobility");
+  const db = client.db(process.env.MONGODB_DB || "nxt_mobility");
+  await ensureMongoSetup(db);
+  return db;
 }
 
 export function toObjectId(id: string) {
@@ -30,4 +33,35 @@ export function toObjectId(id: string) {
     throw new Error("Invalid MongoDB id");
   }
   return new ObjectId(id);
+}
+
+async function ensureMongoSetup(db: Db) {
+  if (!globalMongo._nxtMongoSetupPromise) {
+    globalMongo._nxtMongoSetupPromise = setupCollections(db);
+  }
+  await globalMongo._nxtMongoSetupPromise;
+}
+
+async function setupCollections(db: Db) {
+  const existing = new Set((await db.listCollections().toArray()).map((collection) => collection.name));
+  const collectionNames = ["contactLeads", "dealerLeads", "testRideLeads", "blogPosts"];
+
+  await Promise.all(
+    collectionNames.map(async (name) => {
+      if (!existing.has(name)) {
+        await db.createCollection(name);
+      }
+    })
+  );
+
+  await Promise.all([
+    db.collection("contactLeads").createIndex({ createdAt: -1 }),
+    db.collection("contactLeads").createIndex({ status: 1, createdAt: -1 }),
+    db.collection("dealerLeads").createIndex({ createdAt: -1 }),
+    db.collection("dealerLeads").createIndex({ status: 1, createdAt: -1 }),
+    db.collection("testRideLeads").createIndex({ createdAt: -1 }),
+    db.collection("testRideLeads").createIndex({ status: 1, createdAt: -1 }),
+    db.collection("blogPosts").createIndex({ slug: 1 }, { unique: true, sparse: true }),
+    db.collection("blogPosts").createIndex({ published: 1, updatedAt: -1 })
+  ]);
 }

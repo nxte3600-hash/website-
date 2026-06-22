@@ -2,11 +2,6 @@ import { AdminShell } from "@/components/AdminShell";
 import { listCmsBlogPosts } from "@/lib/blogStore";
 import { listLeads } from "@/lib/leadStore";
 
-const sampleLeads = [
-  { name: "Dealer prospect", phone: "+91 XXXXX XXXXX", city: "Noida", status: "New", collection: "dealerLeads", message: "Interested in scooter and e-rickshaw territory." },
-  { name: "Test ride request", phone: "+91 XXXXX XXXXX", city: "Bengaluru", status: "Follow-up", collection: "testRideLeads", message: "Wants PRINCE HS test ride." }
-];
-
 type DashboardLead = {
   status?: string;
 };
@@ -14,7 +9,7 @@ type DashboardLead = {
 export default async function AdminDashboardPage() {
   const leads = await listLeads();
   const posts = await listCmsBlogPosts();
-  const data: DashboardLead[] = leads.length ? (leads as DashboardLead[]) : sampleLeads;
+  const data: DashboardLead[] = leads as DashboardLead[];
   const newLeads = data.filter((lead) => lead.status === "New").length;
   const followUps = data.filter((lead) => lead.status === "Follow-up").length;
 

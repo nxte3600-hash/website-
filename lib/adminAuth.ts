@@ -4,11 +4,15 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 const cookieName = "nxt_admin_session";
 
 function secret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "nxt-dev-admin-secret";
+  return process.env.JWT_SECRET || process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "nxt-dev-admin-secret";
+}
+
+export function adminUsername() {
+  return process.env.ADMIN_USERNAME || process.env.ADMIN_EMAIL || "";
 }
 
 export function adminConfigured() {
-  return Boolean(process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD);
+  return Boolean(adminUsername() && process.env.ADMIN_PASSWORD);
 }
 
 export function createAdminToken(email: string) {
