@@ -2,6 +2,9 @@ import { AdminLeadTable } from "@/components/AdminLeadTable";
 import { AdminShell } from "@/components/AdminShell";
 import { listLeads } from "@/lib/leadStore";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminTestRidesPage() {
   const leads = await listLeads("testRideLeads");
   return (

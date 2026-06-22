@@ -2,6 +2,9 @@ import { AdminShell } from "@/components/AdminShell";
 import { listCmsBlogPosts } from "@/lib/blogStore";
 import { listLeads } from "@/lib/leadStore";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type DashboardLead = {
   status?: string;
 };

@@ -2,6 +2,9 @@ import { AdminBlogManager } from "@/components/AdminBlogManager";
 import { AdminShell } from "@/components/AdminShell";
 import { listCmsBlogPosts } from "@/lib/blogStore";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminBlogsPage() {
   const cmsPosts = await listCmsBlogPosts();
 

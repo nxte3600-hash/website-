@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { createCmsBlogPost, listCmsBlogPosts } from "@/lib/blogStore";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ ok: false, reason: "Unauthorized" }, { status: 401 });

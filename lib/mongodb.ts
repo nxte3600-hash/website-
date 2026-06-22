@@ -8,7 +8,7 @@ type GlobalMongo = typeof globalThis & {
 const globalMongo = globalThis as GlobalMongo;
 
 export function hasMongoConfig() {
-  return Boolean(process.env.MONGODB_URI);
+  return Boolean(process.env.MONGODB_URI) && process.env.NEXT_PHASE !== "phase-production-build";
 }
 
 export async function getMongoDb(): Promise<Db> {

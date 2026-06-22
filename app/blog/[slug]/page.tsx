@@ -5,15 +5,11 @@ import { ArrowLeft, CalendarDays, Clock3, Newspaper, UserRound } from "lucide-re
 import { BlogCard } from "@/components/BlogCard";
 import { FuturisticCTA } from "@/components/FuturisticCTA";
 import { VideoHero } from "@/components/VideoHero";
-import { blogPosts } from "@/lib/blogPosts";
 import { getPublicBlogPost, listPublicBlogPosts } from "@/lib/blogStore";
 import { getVideoAsset } from "@/lib/videoAssets";
 
 export const dynamic = "force-dynamic";
-
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
+export const revalidate = 0;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

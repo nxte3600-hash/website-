@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { leadCollections, updateLead, type LeadCollection } from "@/lib/leadStore";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function PATCH(request: Request, { params }: { params: Promise<{ collection: string; id: string }> }) {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ ok: false, reason: "Unauthorized" }, { status: 401 });
