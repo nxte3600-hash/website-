@@ -1,0 +1,16 @@
+import { AdminLeadTable } from "@/components/AdminLeadTable";
+import { AdminShell } from "@/components/AdminShell";
+import { listLeads } from "@/lib/leadStore";
+
+export default async function AdminDealersPage() {
+  const leads = await listLeads("dealerLeads");
+  return (
+    <AdminShell>
+      <h1 className="text-5xl font-black leading-none">Dealer Enquiries</h1>
+      <p className="mt-4 max-w-3xl leading-8 text-steel-300">Track territory, investment range, priority and follow-up status for dealership prospects.</p>
+      <div className="mt-8">
+        <AdminLeadTable leads={leads.length ? leads : [{ name: "Sample dealer", phone: "+91 XXXXX XXXXX", city: "Jaipur", status: "New", collection: "dealerLeads", message: "Interested in EV showroom." }]} />
+      </div>
+    </AdminShell>
+  );
+}

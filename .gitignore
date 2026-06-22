@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# production
+build/
+dist/
+
+# local env
+.env
+.env*.local
+
+# logs
+*.log
+dev-server.*.log
+
+# local audit/screenshot artifacts
+.audit/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

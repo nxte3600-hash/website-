@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background: #020817;
+  color: #dcecff;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(56, 215, 255, 0.16), transparent 28rem),
+    radial-gradient(circle at 82% 6%, rgba(61, 125, 255, 0.14), transparent 32rem),
+    linear-gradient(180deg, #020817 0%, #061126 48%, #020817 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 82%);
+}
+
+::selection {
+  color: #020817;
+  background: #51f0ac;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.26;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+}
+
+.glass-panel {
+  border: 1px solid rgba(144, 202, 255, 0.18);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(56, 215, 255, 0.12), transparent 18rem),
+    linear-gradient(180deg, rgba(14, 41, 86, 0.78), rgba(4, 13, 31, 0.9));
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px);
+}
+
+.metal-panel {
+  border: 1px solid rgba(181, 213, 238, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(111, 148, 181, 0.05)),
+    linear-gradient(180deg, rgba(11, 35, 72, 0.82), rgba(2, 8, 23, 0.92));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 28px 90px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(24px);
+}
+
+.premium-grid {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 36%, black, transparent 72%);
+}
+
+.blueprint-card {
+  border: 1px solid rgba(56, 215, 255, 0.22);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(56, 215, 255, 0.16), transparent 18rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(24px);
+}
+
+.premium-video-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 12rem;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, #020817 74%);
+}
+
+.energy-field {
+  overflow: hidden;
+  opacity: 0.82;
+}
+
+.energy-field::before,
+.energy-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 10%, rgba(56, 215, 255, 0.18) 11%, transparent 12%),
+    linear-gradient(70deg, transparent 48%, rgba(81, 240, 172, 0.12) 49%, transparent 50%),
+    linear-gradient(100deg, transparent 76%, rgba(61, 125, 255, 0.18) 77%, transparent 78%);
+  background-size: 420px 100%, 620px 100%, 760px 100%;
+  animation: energyDrift 13s linear infinite;
+}
+
+.energy-field::after {
+  opacity: 0.38;
+  filter: blur(8px);
+  animation-duration: 19s;
+  animation-direction: reverse;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(56, 215, 255, 0.75), rgba(255, 255, 255, 0.48), transparent);
+}
+
+.white-premium {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(56, 215, 255, 0.2), transparent 22rem),
+    linear-gradient(135deg, #ffffff, #edf6ff);
+  color: #020817;
+}
+
+.timeline-line {
+  background: linear-gradient(180deg, rgba(56, 215, 255, 0), rgba(56, 215, 255, 0.85), rgba(81, 240, 172, 0));
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.28);
+}
+
+.hero-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(56, 215, 255, 0.2), transparent),
+    linear-gradient(180deg, transparent 55%, rgba(2, 8, 23, 0.95));
+  animation: sweep 5.6s ease-in-out infinite;
+  transform: translateX(-120%);
+}
+
+.scan-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 32%, rgba(56, 215, 255, 0.14), transparent 55%);
+  background-size: 220% 100%;
+  animation: scan 4.8s linear infinite;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes energyDrift {
+  from {
+    transform: translate3d(-8%, 0, 0);
+  }
+  to {
+    transform: translate3d(8%, 0, 0);
+  }
+}
