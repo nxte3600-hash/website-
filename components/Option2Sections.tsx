@@ -156,7 +156,7 @@ export function AudienceJourneys() {
 const productImages: Record<string, string> = {
   grace: homeAsset("products/grace1.png"),
   "energy-pro": homeAsset("products/energypro1.png"),
-  xt1: homeAsset("products/ola1.png"),
+  xt1: "/option2/ola1.png",
   e4: homeAsset("products/e42.png")
 };
 
