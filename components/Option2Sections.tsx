@@ -77,7 +77,7 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
 
   return (
     <section
-      className="relative bg-white"
+      className="relative bg-white pt-10 md:pt-14"
       tabIndex={-1}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") goTo(index - 1);
@@ -89,7 +89,7 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,.94)_0%,rgba(255,255,255,.8)_34%,rgba(255,255,255,.08)_67%)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(7,26,47,.34),transparent)]" />
 
-        <div className="nxte-shell relative z-10 flex min-h-[530px] flex-col justify-center pt-24 md:min-h-[620px] md:pt-28">
+        <div className="nxte-shell relative z-10 flex min-h-[530px] flex-col justify-center pt-14 md:min-h-[620px] md:pt-16">
           <div className="max-w-[590px]">
             <h1 className="nxte-display text-[2.85rem] font-extrabold leading-[1.03] text-[var(--nxte-navy)] sm:text-[4.25rem] lg:text-[5.35rem]">
               Move through India. Your way.

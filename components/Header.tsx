@@ -20,7 +20,7 @@ export function Header() {
   const isHome = pathname === "/";
 
   return (
-    <header className={`${isHome ? "fixed top-4" : "sticky top-3"} left-0 right-0 z-50 pointer-events-none`}>
+    <header className={`${isHome ? "relative bg-white py-4" : "sticky top-3"} left-0 right-0 z-50 pointer-events-none`}>
       <nav className="nxte-shell pointer-events-auto flex h-16 items-center justify-between gap-5 rounded-[14px] border border-[rgba(7,26,47,0.1)] bg-white/95 px-5 shadow-[0_12px_32px_rgba(7,26,47,.12)] backdrop-blur-xl" aria-label="Primary navigation">
         <Link href="/" className="nxte-display text-[1.55rem] font-extrabold leading-none tracking-[0.09em] text-[var(--nxte-navy)]" aria-label="NXTE Mobility home">
           NXT<span className="text-[var(--nxte-orange)]">E</span>
