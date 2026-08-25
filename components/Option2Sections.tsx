@@ -77,7 +77,7 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
 
   return (
     <section
-      className="relative bg-white pt-10 md:pt-14"
+      className="relative bg-white"
       tabIndex={-1}
       onKeyDown={(event) => {
         if (event.key === "ArrowLeft") goTo(index - 1);
@@ -330,45 +330,18 @@ function FeatureColumn({ features }: { features: Array<[string, string, LucideIc
 
 function PhonePreview() {
   return (
-    <div className="mx-auto w-full max-w-[275px] rounded-[34px] bg-white p-3 text-[var(--nxte-navy)] shadow-[0_22px_60px_rgba(0,0,0,.34)]">
-      <div className="overflow-hidden rounded-[26px] bg-[#f6f8fb]">
-        <div className="flex items-center justify-between border-b border-[rgba(7,26,47,.1)] bg-white px-4 py-3 text-xs font-extrabold">
-          <span>←</span><span>NXTE Grace</span><span title="Preview interface">Preview</span>
-        </div>
-        <div className="relative h-52 bg-[#eef2f4]">
-          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 260 208" aria-hidden>
-            <path d="M0 45 C45 15 70 70 118 38 S194 15 260 42" fill="none" stroke="#d8dde2" strokeWidth="12" />
-            <path d="M0 156 C50 118 82 178 140 139 S205 98 260 116" fill="none" stroke="#d8dde2" strokeWidth="12" />
-            <path d="M38 0 L70 208M178 0 L145 208" stroke="#e5e9ed" strokeWidth="10" />
-            <path d="M95 97 L132 74 L164 101 L130 134 Z" fill="#ffffff" stroke="#ccd4dc" />
-          </svg>
-          <span className="absolute left-1/2 top-[46%] grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[var(--nxte-navy)] text-white shadow-lg"><MapPin size={22} fill="currentColor" /></span>
-        </div>
-        <div className="grid grid-cols-2 gap-3 bg-white p-4">
-          <Metric label="Battery" value="85%" icon={BatteryCharging} />
-          <Metric label="Range" value="72 km" icon={Navigation} />
-        </div>
-        <div className="px-4 pb-4">
-          <p className="mb-2 text-xs font-extrabold">Vehicle Control</p>
-          <div className="grid grid-cols-4 gap-2 text-center text-[10px] font-bold text-[rgba(7,26,47,.62)]">
-            {["Lock", "Unlock", "On", "Off"].map((item, itemIndex) => (
-              <span key={item} className="grid gap-1">
-                <span className={`mx-auto grid h-8 w-8 place-items-center rounded-full ${itemIndex === 2 ? "bg-[var(--nxte-orange)] text-white" : "bg-[rgba(7,26,47,.06)] text-[var(--nxte-navy)]"}`}><Power size={13} /></span>
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="grid grid-cols-5 border-t border-[rgba(7,26,47,.08)] bg-white py-2 text-center text-[10px] font-extrabold text-[rgba(7,26,47,.55)]">
-          {["Home", "Trip", "App", "Alerts", "More"].map((item, itemIndex) => <span key={item} className={itemIndex === 2 ? "text-[var(--nxte-orange)]" : ""}>{item}</span>)}
-        </div>
+    <div className="mx-auto w-full max-w-[292px] rounded-[34px] bg-white p-2.5 shadow-[0_22px_60px_rgba(0,0,0,.34)]">
+      <div className="relative aspect-[864/1821] overflow-hidden rounded-[28px] bg-white">
+        <Image
+          src={homeAsset("sections/mobileapp.png")}
+          alt="NXTE mobile app screen for connected vehicle controls"
+          fill
+          className="object-cover"
+          sizes="(max-width: 1024px) 292px, 22vw"
+        />
       </div>
     </div>
   );
-}
-
-function Metric({ label, value, icon: Icon }: { label: string; value: string; icon: LucideIcon }) {
-  return <div className="rounded-xl bg-[#f6f8fb] p-3"><div className="flex items-center gap-2 text-xs font-bold text-[rgba(7,26,47,.6)]"><Icon size={14} /> {label}</div><p className="mt-1 text-xl font-extrabold text-[var(--nxte-navy)]">{value}</p></div>;
 }
 
 export function OwnershipJourney() {
