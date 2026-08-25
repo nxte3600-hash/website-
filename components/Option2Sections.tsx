@@ -89,7 +89,7 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,.94)_0%,rgba(255,255,255,.8)_34%,rgba(255,255,255,.08)_67%)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(7,26,47,.34),transparent)]" />
 
-        <div className="nxte-shell relative z-10 flex min-h-[530px] flex-col justify-center pt-14 md:min-h-[620px] md:pt-16">
+        <div className="nxte-shell relative z-10 flex min-h-[530px] flex-col justify-center pb-24 pt-12 md:min-h-[620px] md:pb-28 md:pt-16">
           <div className="max-w-[590px]">
             <h1 className="nxte-display text-[2.85rem] font-extrabold leading-[1.03] text-[var(--nxte-navy)] sm:text-[4.25rem] lg:text-[5.35rem]">
               Move through India. Your way.
@@ -102,8 +102,8 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
           </div>
         </div>
 
-        <div className="nxte-shell absolute inset-x-0 bottom-8 z-20 flex items-center justify-between">
-          <button type="button" className="home-round-control" onClick={() => goTo(index - 1)} aria-label="Previous hero slide">←</button>
+        <div className="nxte-shell absolute inset-x-0 bottom-6 z-20 flex items-center justify-center gap-5 md:bottom-8 md:justify-end">
+          <button type="button" className="home-round-control absolute left-0 top-1/2 -translate-y-1/2 md:left-auto md:right-16" onClick={() => goTo(index - 1)} aria-label="Previous hero slide">←</button>
           <div className="flex gap-3">
             {slides.map((slide, slideIndex) => (
               <button
@@ -115,7 +115,7 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
               />
             ))}
           </div>
-          <button type="button" className="home-round-control" onClick={() => goTo(index + 1)} aria-label="Next hero slide">→</button>
+          <button type="button" className="home-round-control absolute right-0 top-1/2 -translate-y-1/2" onClick={() => goTo(index + 1)} aria-label="Next hero slide">→</button>
         </div>
       </div>
     </section>

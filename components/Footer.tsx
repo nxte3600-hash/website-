@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { companyAddresses, companyDetails } from "@/lib/companyKnowledge";
 
@@ -22,8 +23,10 @@ export function Footer() {
     <footer className="nxte-navy mt-0">
       <div className="nxte-shell grid gap-8 py-8 md:grid-cols-[1.1fr_.9fr_1.4fr]">
         <div>
-          <Link href="/" className="nxte-display text-2xl font-extrabold tracking-[0.08em]">
-            NXT<span className="text-[var(--nxte-orange)]">E</span> MOBILITY
+          <Link href="/" className="inline-flex rounded-[10px] bg-white px-4 py-3 shadow-[0_12px_28px_rgba(0,0,0,.18)]" aria-label="NXTE Mobility home">
+            <span className="relative block h-[48px] w-[142px]">
+              <Image src="/brand/logo.png" alt="NXTE Mobility" fill sizes="142px" className="object-contain" />
+            </span>
           </Link>
           <p className="mt-3 max-w-sm text-xs leading-6 text-white/72">
             India&apos;s next electric movement. Built with practical manufacturing confidence for personal, passenger and cargo journeys.

@@ -99,6 +99,10 @@ img {
   backdrop-filter: blur(8px);
 }
 
+.header-cta {
+  display: inline-flex;
+}
+
 .home-scroll-row {
   overflow-x: auto;
   scroll-snap-type: x proximity;
@@ -292,6 +296,10 @@ img {
 @media (max-width: 640px) {
   .nxte-shell {
     width: min(100% - 24px, 1440px);
+  }
+
+  .header-cta {
+    display: none !important;
   }
 
   .home-scroll-row {
