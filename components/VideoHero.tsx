@@ -15,7 +15,7 @@ export function VideoHero({
   title,
   copy,
   videoSrc = "/video/hero-electric-scooter.mp4",
-  poster = "/vehicles/prince-hs.jpg",
+  poster = "/option2/hero-india-in-motion.png",
   actions = [],
   children,
   align = "center"

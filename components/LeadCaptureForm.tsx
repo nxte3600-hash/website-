@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Handshake } from "lucide-react";
+import { FormEvent, useMemo, useState } from "react";
+import { Send } from "lucide-react";
 import { vehicles } from "@/lib/vehicles";
 
 type LeadFormKind = "contact" | "dealer" | "testRide";
+type Status = "idle" | "sending" | "success" | "error";
 
 const endpointByKind: Record<LeadFormKind, string> = {
   contact: "/api/contact",
@@ -13,85 +14,127 @@ const endpointByKind: Record<LeadFormKind, string> = {
 };
 
 export function LeadCaptureForm({ kind, tone = "light" }: { kind: LeadFormKind; tone?: "light" | "dark" }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
   const dark = tone === "dark";
-  const inputClass = dark
-    ? "rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-400 focus:border-electric-cyan"
-    : "rounded-2xl border border-slate-200 bg-white px-4 py-4 text-midnight outline-none focus:border-navy-700";
+  const models = useMemo(() => vehicles.map((vehicle) => ({ id: vehicle.id, name: vehicle.name })), []);
+  const fieldClass = dark
+    ? "nxte-input border-white/18 bg-white/10 text-white placeholder:text-white/48"
+    : "nxte-input";
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("sending");
+    setError("");
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
-    const response = await fetch(endpointByKind[kind], {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-    setStatus(response.ok ? "success" : "error");
-    if (response.ok) form.reset();
+    if (!String(data.name || "").trim() || !String(data.phone || "").trim()) {
+      setError("Please add your name and phone number so the NXTE team can respond.");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const response = await fetch(endpointByKind[kind], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!response.ok) throw new Error("Request failed");
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setError("We could not submit this request. Please retry or use WhatsApp +91-9289484831.");
+    }
   }
 
   return (
-    <form onSubmit={onSubmit} className={`grid gap-4 ${dark ? "glass-panel rounded-[2.5rem] p-6 sm:p-8" : "white-premium h-fit rounded-[2.5rem] p-6 shadow-panel sm:p-8"}`}>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <input name="name" required className={inputClass} placeholder="Full name" />
-        <input name="phone" required className={inputClass} placeholder="Phone number" />
+    <form onSubmit={onSubmit} className={`${dark ? "rounded-2xl bg-[var(--nxte-navy)] text-white" : "nxte-card"} grid gap-4 p-6 sm:p-8`} noValidate>
+      <div>
+        <p className="nxte-kicker">{kind === "dealer" ? "Dealer enquiry" : kind === "testRide" ? "Book a test ride" : "Contact NXTE"}</p>
+        <h2 className="nxte-display mt-2 text-2xl font-bold">Share your details</h2>
       </div>
-      <input name="email" type="email" className={inputClass} placeholder="Email address" />
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-2 text-sm font-bold">
+          Full name
+          <input name="name" required className={fieldClass} placeholder="Your name" />
+        </label>
+        <label className="grid gap-2 text-sm font-bold">
+          Phone number
+          <input name="phone" required inputMode="tel" className={fieldClass} placeholder="+91..." />
+        </label>
+      </div>
+
+      <label className="grid gap-2 text-sm font-bold">
+        Email
+        <input name="email" type="email" className={fieldClass} placeholder="you@example.com" />
+      </label>
 
       {kind === "dealer" ? (
         <>
-          <input name="company" className={inputClass} placeholder="Company name" />
+          <label className="grid gap-2 text-sm font-bold">
+            Business name
+            <input name="company" className={fieldClass} placeholder="Company or showroom name" />
+          </label>
           <div className="grid gap-4 sm:grid-cols-2">
-            <input name="city" className={inputClass} placeholder="Preferred city / territory" />
-            <select name="investmentRange" className={inputClass} defaultValue="">
-              <option value="" disabled>Investment range</option>
-              <option>15-20 lakhs</option>
-              <option>20-25 lakhs</option>
-              <option>25 lakhs+</option>
-            </select>
+            <label className="grid gap-2 text-sm font-bold">
+              Preferred territory
+              <input name="city" className={fieldClass} placeholder="City / district" />
+            </label>
+            <label className="grid gap-2 text-sm font-bold">
+              Investment range
+              <select name="investmentRange" className={fieldClass} defaultValue="">
+                <option value="" disabled>Choose range</option>
+                <option>15-20 lakhs</option>
+                <option>20-25 lakhs</option>
+                <option>25 lakhs+</option>
+              </select>
+            </label>
           </div>
         </>
       ) : null}
 
       {kind === "testRide" ? (
         <div className="grid gap-4 sm:grid-cols-2">
-          <select name="vehicleId" className={inputClass} defaultValue="">
-            <option value="" disabled>Select model</option>
-            {vehicles.map((vehicle) => <option key={vehicle.id} value={vehicle.id}>{vehicle.name}</option>)}
-          </select>
-          <input name="city" className={inputClass} placeholder="City" />
+          <label className="grid gap-2 text-sm font-bold">
+            Vehicle
+            <select name="vehicleId" className={fieldClass} defaultValue="">
+              <option value="" disabled>Select model</option>
+              {models.map((model) => <option key={model.id} value={model.id}>{model.name}</option>)}
+            </select>
+          </label>
+          <label className="grid gap-2 text-sm font-bold">
+            City
+            <input name="city" className={fieldClass} placeholder="Your city" />
+          </label>
         </div>
       ) : null}
 
       {kind === "contact" ? (
-        <select name="inquiryType" className={inputClass} defaultValue="">
-          <option value="" disabled>Inquiry type</option>
-          <option>Vehicle purchase</option>
-          <option>Test ride</option>
-          <option>Dealership</option>
-          <option>Fleet / B2B</option>
-        </select>
+        <label className="grid gap-2 text-sm font-bold">
+          Inquiry type
+          <select name="inquiryType" className={fieldClass} defaultValue="">
+            <option value="" disabled>Choose inquiry</option>
+            <option>Vehicle purchase</option>
+            <option>Test ride</option>
+            <option>Dealership</option>
+            <option>Fleet / B2B</option>
+            <option>Service support</option>
+          </select>
+        </label>
       ) : null}
 
-      <textarea
-        name="message"
-        className={`${inputClass} min-h-36`}
-        placeholder={kind === "testRide" ? "Preferred date, dealer, finance query, or message" : "Message"}
-      />
-      <button
-        className={`inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-black ${
-          dark ? "bg-gradient-to-r from-electric-cyan to-electric-green text-midnight" : "bg-midnight text-white"
-        }`}
-        type="submit"
-        disabled={status === "sending"}
-      >
-        <Handshake size={18} /> {status === "sending" ? "Sending..." : kind === "dealer" ? "Submit Dealer Inquiry" : kind === "testRide" ? "Submit Test Ride Request" : "Send Inquiry"}
+      <label className="grid gap-2 text-sm font-bold">
+        Message
+        <textarea name="message" className={`${fieldClass} min-h-32 resize-y`} placeholder="Tell us your route, city, finance need or business inquiry" />
+      </label>
+
+      {error ? <p className={dark ? "text-sm font-semibold text-white" : "text-sm font-semibold text-[var(--nxte-orange)]"}>{error}</p> : null}
+      {status === "success" ? <p className="text-sm font-semibold">Request received. The NXTE team can follow up from the lead pipeline.</p> : null}
+
+      <button type="submit" disabled={status === "sending"} className="nxte-button nxte-button-primary w-full disabled:cursor-wait disabled:opacity-70">
+        <Send size={18} /> {status === "sending" ? "Sending..." : status === "error" ? "Retry submission" : "Submit request"}
       </button>
-      {status === "success" ? <p className={dark ? "text-electric-green" : "text-emerald-700"}>Request received. The NXT team can follow up from the admin leads pipeline.</p> : null}
-      {status === "error" ? <p className={dark ? "text-red-200" : "text-red-700"}>Submission could not be stored. Check MongoDB environment settings or try again later.</p> : null}
     </form>
   );
 }

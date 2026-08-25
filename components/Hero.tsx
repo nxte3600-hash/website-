@@ -6,7 +6,7 @@ import { ArrowRight, BatteryCharging, Gauge, ShieldCheck } from "lucide-react";
 import { vehicles } from "@/lib/vehicles";
 import { VehicleStage } from "@/components/VehicleStage";
 
-const featured = vehicles.find((vehicle) => vehicle.id === "prince-hs") ?? vehicles[0];
+const featured = vehicles.find((vehicle) => vehicle.id === "grace") ?? vehicles[0];
 
 export function Hero() {
   return (

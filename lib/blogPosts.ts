@@ -40,7 +40,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     excerpt:
       "A practical guide for buyers comparing lead-acid, lithium, daily range, charging discipline, and service expectations.",
-    heroImage: "/vehoicle_image/zenith/2.png",
+    heroImage: "/option2/energypro2.png",
     icon: BatteryCharging,
     sections: [
       {
@@ -69,7 +69,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     excerpt:
       "Why premium EV experiences present bank partners, EMI readiness, and running-cost logic before the user reaches a sales form.",
-    heroImage: "/vehoicle_image/prince/2.png",
+    heroImage: "/option2/grace2.png",
     icon: Banknote,
     sections: [
       {
@@ -117,7 +117,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     excerpt:
       "Match a model to city commute, passenger route, or last-mile cargo needs with route-first EV selection.",
-    heroImage: "/vehoicle_image/glide/1.png",
+    heroImage: "/option2/ola2.png",
     icon: Route,
     sections: [
       {
@@ -165,7 +165,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     excerpt:
       "How clean mobility can be communicated through economics, emissions, noise reduction, and local business value.",
-    heroImage: "/vehoicle_image/energy/4.png",
+    heroImage: "/option2/sustainability-master.png",
     icon: Leaf,
     sections: [
       {

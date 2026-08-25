@@ -40,7 +40,7 @@ function normalizeCmsPost(row: Record<string, unknown>): CmsBlogPost {
     author: String(row.author ?? "NXT Mobility Team"),
     readTime: String(row.readTime ?? "4 min read"),
     excerpt: String(row.excerpt ?? ""),
-    heroImage: String(row.heroImage ?? "/vehoicle_image/zenith/1.png"),
+    heroImage: String(row.heroImage ?? "/option2/hero-india-in-motion.png"),
     published: Boolean(row.published),
     sections: sections.length ? sections : [{ heading: "Overview", body: String(row.excerpt ?? "") }],
     createdAt: row.createdAt,

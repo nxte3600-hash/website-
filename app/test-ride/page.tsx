@@ -1,40 +1,22 @@
-import Image from "next/image";
-import { CalendarClock, MapPin, Phone, Sparkles } from "lucide-react";
+import type { Metadata } from "next";
 import { LeadCaptureForm } from "@/components/LeadCaptureForm";
-import { PremiumPageHero } from "@/components/PremiumPageHero";
+import { PageHero } from "@/components/Option2Sections";
+
+export const metadata: Metadata = {
+  title: "Book Test Ride",
+  description: "Book an NXTE Mobility test ride for approved two-wheelers, passenger three-wheelers or cargo EVs."
+};
 
 export default function TestRidePage() {
   return (
     <main>
-      <PremiumPageHero
-        eyebrow="Test ride"
-        title="From blue-lit screen to electric street."
-        copy="A premium test ride flow that helps buyers choose a model, city, finance question, and callback preference without friction."
-        videoKey="testRide"
-      >
-        <div className="metal-panel relative min-h-[480px] overflow-hidden rounded-[2.5rem]">
-          <Image src="/vehoicle_image/prince/3.png" alt="Book NXT test ride" fill className="object-contain p-10" priority />
-          <div className="absolute left-6 top-6 rounded-3xl border border-white/10 bg-white/10 p-5 text-white backdrop-blur-2xl">
-            <CalendarClock className="mb-3 text-electric-cyan" />
-            <strong className="text-2xl font-black">48 hr callback flow</strong>
-          </div>
-        </div>
-      </PremiumPageHero>
-
-      <section className="px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.85fr_1.15fr]">
-          <div className="grid gap-5">
-            {[
-              { icon: Sparkles, title: "Choose model", copy: "Select from scooters, rickshaws, or utility three-wheelers." },
-              { icon: MapPin, title: "Choose city", copy: "Route the lead to the nearest dealer or local sales team." },
-              { icon: Phone, title: "Get callback", copy: "A clean handoff for test ride scheduling and finance questions." }
-            ].map((item) => (
-              <article key={item.title} className="glass-panel rounded-[2rem] p-7">
-                <item.icon className="mb-4 text-electric-cyan" />
-                <h2 className="text-2xl font-black text-white">{item.title}</h2>
-                <p className="mt-3 leading-8 text-steel-400">{item.copy}</p>
-              </article>
-            ))}
+      <PageHero eyebrow="Book a test ride" title="Feel the difference on your route." copy="Choose a model, city and contact details. The NXTE team can follow up with test ride and finance support." image="/option2/grace1.png" />
+      <section className="nxte-section">
+        <div className="nxte-shell grid gap-8 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
+          <div>
+            <p className="nxte-kicker">Your next step</p>
+            <h2 className="nxte-display mt-2 text-4xl font-extrabold text-[var(--nxte-navy)]">From interest to a real ride.</h2>
+            <p className="mt-4 leading-8 text-[var(--nxte-muted)]">The form uses the existing test-ride API and keeps submission status visible. Use WhatsApp from the assistant launcher if the backend is unavailable.</p>
           </div>
           <LeadCaptureForm kind="testRide" />
         </div>

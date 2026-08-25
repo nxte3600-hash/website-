@@ -15,7 +15,7 @@ export function PremiumHero() {
         muted
         loop
         playsInline
-        poster="/vehicles/prince-hs.jpg"
+        poster="/option2/hero-india-in-motion.png"
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,18,32,.96)_0%,rgba(10,18,32,.82)_44%,rgba(10,18,32,.52)_100%)]" />
 
@@ -59,8 +59,8 @@ export function PremiumHero() {
             className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 shadow-panel backdrop-blur-2xl"
           >
             <Image
-              src="/vehoicle_image/prince/1.png"
-              alt="NXT Prince HS electric scooter"
+              src="/option2/grace1.png"
+              alt="NXTE Grace electric scooter"
               fill
               priority
               className="object-contain p-10 pt-20"

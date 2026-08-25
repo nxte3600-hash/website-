@@ -23,7 +23,7 @@ export function ThreeVehicleShowcase() {
     scene.add(group);
 
     const loader = new THREE.TextureLoader();
-    const texture = loader.load("/vehicles/prince-hs.jpg");
+    const texture = loader.load("/option2/grace1.png");
     texture.colorSpace = THREE.SRGBColorSpace;
 
     const vehicle = new THREE.Mesh(

@@ -29,7 +29,7 @@ export function AdminBlogManager({ initialPosts }: { initialPosts: BlogRow[] }) 
       excerpt: data.excerpt,
       author: data.author || "NXT Mobility Team",
       readTime: data.readTime || "4 min read",
-      heroImage: data.heroImage || "/vehoicle_image/zenith/1.png",
+      heroImage: data.heroImage || "/option2/hero-india-in-motion.png",
       published: data.published === "on",
       sections: [
         {
@@ -85,7 +85,7 @@ export function AdminBlogManager({ initialPosts }: { initialPosts: BlogRow[] }) 
           <input name="category" required placeholder="Category" className="rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
           <input name="author" placeholder="Author" className="rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
           <input name="readTime" placeholder="Read time, e.g. 5 min read" className="rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
-          <input name="heroImage" placeholder="/vehoicle_image/zenith/1.png" className="rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
+          <input name="heroImage" placeholder="/option2/hero-india-in-motion.png" className="rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
         </div>
         <textarea name="excerpt" required placeholder="Short excerpt" className="mt-4 min-h-28 w-full rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />
         <input name="sectionHeading" placeholder="Section heading" className="mt-4 w-full rounded-2xl border border-white/10 bg-midnight/70 px-4 py-4 text-white outline-none placeholder:text-steel-500 focus:border-electric-cyan" />

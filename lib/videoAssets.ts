@@ -20,7 +20,7 @@ const localHeroVideo = "/video/hero-electric-scooter.mp4";
 export const videoAssets: Record<VideoAssetKey, VideoAsset> = {
   home: {
     videoSrc: localHeroVideo,
-    poster: "/vehoicle_image/zenith/1.png",
+    poster: "/option2/hero-india-in-motion.png",
     note: "Replace with licensed EV mobility/manufacturing hero footage when available."
   },
   about: {
@@ -35,17 +35,17 @@ export const videoAssets: Record<VideoAssetKey, VideoAsset> = {
   },
   whyEv: {
     videoSrc: localHeroVideo,
-    poster: "/vehoicle_image/glide/3.png",
+    poster: "/option2/sustainability-master.png",
     note: "Replace with legal clean-air family/nature footage from Pexels, Pixabay, Coverr, or Mixkit."
   },
   blog: {
     videoSrc: localHeroVideo,
-    poster: "/vehoicle_image/energy pro/1.png",
+    poster: "/option2/energypro1.png",
     note: "Replace with EV innovation, charging, or mobility editorial footage."
   },
   vehicles: {
     videoSrc: localHeroVideo,
-    poster: "/vehoicle_image/prince/1.png",
+    poster: "/option2/grace1.png",
     note: "Replace with cinematic product running footage."
   },
   dealer: {
@@ -55,7 +55,7 @@ export const videoAssets: Record<VideoAssetKey, VideoAsset> = {
   },
   testRide: {
     videoSrc: localHeroVideo,
-    poster: "/vehoicle_image/prince/3.png",
+    poster: "/option2/ola3.png",
     note: "Replace with rider/customer test ride experience footage."
   },
   contact: {

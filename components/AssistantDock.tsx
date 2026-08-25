@@ -1,133 +1,152 @@
 "use client";
 
-import Link from "next/link";
-import { MessageCircle, Send, X } from "lucide-react";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { Headphones, MessageCircle, Mic, Pause, Play, RotateCcw, Send, X } from "lucide-react";
 import { answerFromCompanyKnowledge, companyDetails } from "@/lib/companyKnowledge";
 
-type ChatMessage = {
-  role: "bot" | "user";
-  text: string;
+type Panel = "menu" | "chat" | "voice";
+type VoiceState = "idle" | "permission" | "listening" | "processing" | "paused" | "replay" | "error";
+type ChatMessage = { role: "bot" | "user"; text: string };
+
+const starter: ChatMessage = {
+  role: "bot",
+  text: "Namaste. I can help compare NXTE vehicles, book a test ride, route dealership and fleet enquiries, explain finance, service and human handoff."
 };
 
-const greeting =
-  "Hi, I am NXT Bot chat. I can help with vehicles, Google Maps locations, finance partners, test rides, WhatsApp, technology, dealership, and the company story.";
+const prompts = ["Compare models", "Book test ride", "Dealer enquiry", "Fleet enquiry", "Finance support", "Service help", "Human handoff"];
 
 export function AssistantDock() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([{ role: "bot", text: greeting }]);
+  const [panel, setPanel] = useState<Panel>("menu");
+  const [messages, setMessages] = useState<ChatMessage[]>([starter]);
   const [input, setInput] = useState("");
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
-  const whatsappUrl = companyDetails.whatsappUrl;
+  const [voiceState, setVoiceState] = useState<VoiceState>("idle");
+  const [transcript, setTranscript] = useState("Voice assistant is disconnected until microphone permission is granted.");
+  const endRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, open]);
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, open, panel]);
 
-  const ask = (question: string) => {
-    const cleaned = question.trim();
+  function ask(text: string) {
+    const cleaned = text.trim();
     if (!cleaned) return;
-    const answer = answerFromCompanyKnowledge(cleaned);
-    setMessages((current) => [
-      ...current,
-      { role: "user", text: cleaned },
-      { role: "bot", text: answer }
-    ]);
+    setMessages((current) => [...current, { role: "user", text: cleaned }, { role: "bot", text: answerFromCompanyKnowledge(cleaned) }]);
     setInput("");
-  };
+  }
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    ask(input);
-  };
+  async function startVoice() {
+    setVoiceState("permission");
+    try {
+      if (!navigator.mediaDevices?.getUserMedia) throw new Error("Microphone is unavailable in this browser.");
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((track) => track.stop());
+      setVoiceState("listening");
+      setTranscript("Listening demo state. Speak your vehicle, test ride, dealer, fleet, finance or service question. Backend speech processing is not connected yet.");
+      window.setTimeout(() => setVoiceState("processing"), 1200);
+      window.setTimeout(() => setVoiceState("replay"), 2200);
+    } catch {
+      setVoiceState("error");
+      setTranscript("Microphone permission was not granted or is unavailable. Switch to text chat for the same help topics.");
+    }
+  }
 
   return (
-    <>
-      <div className="fixed bottom-5 right-[5.5rem] z-[70] flex items-center gap-3 sm:right-[11.5rem]">
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex h-14 items-center gap-3 rounded-full bg-[#25D366] px-5 font-black text-white shadow-[0_18px_50px_rgba(37,211,102,.28)]"
-          aria-label="Connect with NXT Mobility on WhatsApp"
-        >
-          <MessageCircle size={21} />
-          <span className="hidden sm:inline">WhatsApp</span>
-        </a>
-
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          className="grid h-14 w-14 place-items-center rounded-full bg-white text-midnight shadow-panel"
-          aria-label="Open NXT text chat"
-        >
-          {open ? <X /> : <MessageCircle />}
-        </button>
-      </div>
-
+    <div className="fixed bottom-5 right-4 z-[80] sm:right-6">
       {open ? (
-        <aside className="fixed bottom-24 right-4 z-[70] flex max-h-[78vh] w-[calc(100vw-2rem)] max-w-md flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-midnight/95 shadow-panel backdrop-blur-2xl sm:right-24">
-          <header className="flex items-center justify-between border-b border-white/10 p-4">
+        <aside className="mb-4 max-h-[calc(100vh-7rem)] w-[calc(100vw-2rem)] max-w-[430px] overflow-hidden rounded-2xl border border-white/16 bg-[var(--nxte-navy)] text-white shadow-2xl" aria-label="NXTE assistant">
+          <header className="flex items-center justify-between border-b border-white/12 p-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.2em] text-electric-cyan">NXT Bot</p>
-              <h2 className="text-lg font-black text-white">Text chat</h2>
+              <p className="nxte-kicker">Always available</p>
+              <h2 className="nxte-display text-xl font-bold">NXTE Assist</h2>
             </div>
+            <button type="button" className="grid h-10 w-10 place-items-center rounded-lg bg-white/10" onClick={() => setOpen(false)} aria-label="Close assistant">
+              <X size={18} />
+            </button>
           </header>
 
-          <div className="grid gap-3 overflow-y-auto p-4">
-            {messages.map((message, index) => (
-              <div
-                key={`${message.role}-${index}`}
-                className={`max-w-[88%] rounded-3xl px-4 py-3 text-sm leading-7 ${
-                  message.role === "user"
-                    ? "ml-auto bg-gradient-to-r from-electric-cyan to-electric-green text-midnight"
-                    : "bg-white/[0.07] text-steel-100"
-                }`}
-              >
-                {message.text}
-              </div>
+          <div className="grid grid-cols-3 border-b border-white/12 text-sm font-bold">
+            {(["menu", "chat", "voice"] as Panel[]).map((item) => (
+              <button key={item} type="button" className={`px-3 py-3 capitalize ${panel === item ? "bg-white text-[var(--nxte-navy)]" : "text-white/74"}`} onClick={() => setPanel(item)}>
+                {item === "menu" ? "Start" : item}
+              </button>
             ))}
-            <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t border-white/10 p-3">
-            <div className="mb-3 flex flex-wrap gap-2">
-              {["Open location", "Book test ride", "Finance partners", "Nikhil Kumar", "Vehicle models"].map((prompt) => (
-                <button
-                  key={prompt}
-                  type="button"
-                  onClick={() => ask(prompt)}
-                  className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-bold text-steel-100"
-                >
-                  {prompt}
-                </button>
-              ))}
-            </div>
-            <form onSubmit={onSubmit} className="flex gap-2">
-              <input
-                value={input}
-                onChange={(event) => setInput(event.target.value)}
-                className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white outline-none focus:border-electric-cyan"
-                placeholder="Ask about NXT Mobility..."
-              />
-              <button
-                type="submit"
-                className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-midnight"
-                aria-label="Send chat message"
-              >
-                <Send size={18} />
+          {panel === "menu" ? (
+            <div className="grid gap-3 p-4">
+              <a className="nxte-button nxte-button-primary justify-start" href={companyDetails.whatsappUrl} target="_blank" rel="noreferrer">
+                <MessageCircle size={18} /> WhatsApp +91-9289484831
+              </a>
+              <button type="button" className="nxte-button nxte-button-on-dark justify-start" onClick={() => setPanel("chat")}>
+                <Send size={18} /> NXTE Text Chat
               </button>
-            </form>
-            <div className="mt-3 flex items-center justify-between gap-3 text-xs text-steel-400">
-              <span>Use the separate NXT Bot voice button to speak.</span>
-              <Link href="/company-document" className="font-bold text-electric-cyan">
-                Source document
-              </Link>
+              <button type="button" className="nxte-button nxte-button-on-dark justify-start" onClick={() => setPanel("voice")}>
+                <Mic size={18} /> NXTE Voice Assistant
+              </button>
+              <p className="text-xs leading-5 text-white/58">Demo assistant states are shown honestly when backend voice APIs are not connected.</p>
             </div>
-          </div>
+          ) : null}
+
+          {panel === "chat" ? (
+            <div className="flex max-h-[62vh] flex-col">
+              <div className="grid gap-3 overflow-y-auto p-4">
+                {messages.map((message, index) => (
+                  <div key={`${message.role}-${index}`} className={`max-w-[88%] rounded-xl px-4 py-3 text-sm leading-6 ${message.role === "user" ? "ml-auto bg-[var(--nxte-orange)] text-white" : "bg-white/10 text-white"}`}>
+                    {message.text}
+                  </div>
+                ))}
+                <div ref={endRef} />
+              </div>
+              <div className="border-t border-white/12 p-4">
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {prompts.map((prompt) => (
+                    <button key={prompt} type="button" className="rounded-full border border-white/16 px-3 py-2 text-xs font-bold text-white/82" onClick={() => ask(prompt)}>
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+                <form onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); ask(input); }} className="flex gap-2">
+                  <label className="sr-only" htmlFor="assistant-message">Ask NXTE text chat</label>
+                  <input id="assistant-message" value={input} onChange={(event) => setInput(event.target.value)} className="min-w-0 flex-1 rounded-lg border border-white/16 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/46" placeholder="Ask about vehicles, finance or service" />
+                  <button className="grid h-12 w-12 place-items-center rounded-lg bg-white text-[var(--nxte-navy)]" type="submit" aria-label="Send message">
+                    <Send size={18} />
+                  </button>
+                </form>
+              </div>
+            </div>
+          ) : null}
+
+          {panel === "voice" ? (
+            <div className="grid gap-4 p-4">
+              <div className="rounded-xl bg-white/10 p-4">
+                <p className="text-xs font-bold uppercase tracking-wide text-white/60">Voice state</p>
+                <p className="mt-2 text-lg font-extrabold capitalize">{voiceState}</p>
+                <p className="mt-3 text-sm leading-6 text-white/74">{transcript}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <button className="nxte-button nxte-button-primary" type="button" onClick={startVoice}><Mic size={17} /> Start</button>
+                <button className="nxte-button nxte-button-on-dark" type="button" onClick={() => setVoiceState("paused")}><Pause size={17} /> Pause</button>
+                <button className="nxte-button nxte-button-on-dark" type="button" onClick={() => setVoiceState("replay")}><Play size={17} /> Replay</button>
+                <button className="nxte-button nxte-button-on-dark" type="button" onClick={() => { setVoiceState("idle"); setTranscript("Voice session cancelled. You can restart or switch to text chat."); }}><RotateCcw size={17} /> Cancel</button>
+              </div>
+              <button type="button" className="text-left text-sm font-bold text-white underline underline-offset-4" onClick={() => setPanel("chat")}>
+                Switch to text chat
+              </button>
+            </div>
+          ) : null}
         </aside>
       ) : null}
-    </>
+
+      <button
+        type="button"
+        onClick={() => { setOpen((value) => !value); setPanel("menu"); }}
+        className="grid h-16 w-16 place-items-center rounded-2xl bg-[var(--nxte-orange)] text-white shadow-[0_18px_45px_rgba(243,108,33,0.28)]"
+        aria-expanded={open}
+        aria-label="Open WhatsApp, text chat and voice assistant"
+      >
+        {open ? <X size={24} /> : <Headphones size={25} />}
+      </button>
+    </div>
   );
 }

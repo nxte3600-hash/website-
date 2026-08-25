@@ -11,14 +11,14 @@ const commandVehicles = [
   {
     key: "scooter",
     label: "Scooter",
-    vehicle: scooterVehicles.find((vehicle) => vehicle.id === "zenith") ?? scooterVehicles[0],
+    vehicle: scooterVehicles.find((vehicle) => vehicle.id === "energy-pro") ?? scooterVehicles[0],
     range: "Up to 140 km*",
     speed: "Up to 50 km/h",
     charging: "From 1.5 hrs*",
     payload: "Rider + pillion",
     seating: "2 people",
     useCase: "Daily commute, family errands, city rides",
-    cta: "/vehicles/zenith"
+    cta: "/vehicles/energy-pro"
   },
   {
     key: "erickshaw",
