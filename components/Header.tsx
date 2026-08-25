@@ -7,18 +7,25 @@ import { Menu, X } from "lucide-react";
 
 const navItems = [
   { href: "/vehicles", label: "Vehicles" },
-  { href: "/why-ev", label: "For You" },
-  { href: "/dealer", label: "Business" },
-  { href: "/technology", label: "NXTE App" },
+  { href: "/for-you", label: "For You" },
+  { href: "/business", label: "Business" },
+  { href: "/technology", label: "Technology" },
   { href: "/about-us", label: "About" },
-  { href: "/dealer", label: "Find a Dealer" }
+  { href: "/careers", label: "Careers" },
+  { href: "/contact", label: "Contact" }
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const isActive = (href: string, label: string) => label === "About" ? pathname === "/about-us" || pathname === "/about" : pathname === href;
+  const isActive = (href: string, label: string) => {
+    if (label === "About") return pathname === "/about-us" || pathname === "/about";
+    if (label === "For You") return pathname === "/for-you" || pathname === "/why-ev";
+    if (label === "Business") return pathname === "/business" || pathname === "/dealer";
+    if (label === "Contact") return pathname === "/contact" || pathname === "/contact-us";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <header className={`${isHome ? "relative bg-white py-4" : "sticky top-3"} left-0 right-0 z-50 pointer-events-none`}>

@@ -31,12 +31,17 @@ export const companyDetails = {
   pages: [
     { path: "/", label: "Home", purpose: "Premium video-led landing page with finance partner messaging." },
     { path: "/vehicles", label: "Vehicles", purpose: "Catalog of scooters, e-rickshaws, and utility three-wheelers." },
+    { path: "/for-you", label: "For You", purpose: "Buyer guidance for route, charging, finance, and test ride readiness." },
+    { path: "/business", label: "Business", purpose: "Dealer, fleet, passenger, and cargo EV enquiry pathway." },
     { path: "/technology", label: "Technology", purpose: "EV lab explaining motor, battery, controller, safety, and service systems." },
+    { path: "/app", label: "NXTE App", purpose: "Connected ownership controls and support experience." },
     { path: "/about", label: "About", purpose: "Story from 2021 to now led by CEO & Founder Nikhil Kumar." },
     { path: "/blog", label: "Blog", purpose: "EV education, finance guides, buying advice, and product stories." },
     { path: "/dealer", label: "Dealer", purpose: "Dealership inquiry and partner opportunity page." },
     { path: "/test-ride", label: "Test Ride", purpose: "Test ride lead form and vehicle interest capture." },
-    { path: "/contact-us", label: "Contact Us", purpose: "Clickable Google Maps addresses and inquiry form." }
+    { path: "/service", label: "Service", purpose: "Service and ownership support enquiries." },
+    { path: "/finance", label: "Finance", purpose: "Finance support and EMI enquiry pathway." },
+    { path: "/contact", label: "Contact", purpose: "Clickable Google Maps addresses and inquiry form." }
   ],
   story: [
     "2021: NXT Mobility begins with an EV-first belief for practical Indian mobility.",

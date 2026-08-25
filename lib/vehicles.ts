@@ -208,8 +208,8 @@ export const vehicles: Vehicle[] = [
     parts: scooterParts
   },
   {
-    id: "ola",
-    name: "Ola",
+    id: "xt1",
+    name: "XT1",
     type: "scooter",
     category: "2-Wheeler",
     brandLine: "NXTE Mobility",

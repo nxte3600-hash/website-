@@ -18,7 +18,7 @@ export default function DealerPage() {
             <h2 className="nxte-display mt-2 text-4xl font-extrabold text-[var(--nxte-navy)] md:text-5xl">Multi-category opportunity, with real economics to be confirmed.</h2>
             <div className="mt-8 grid gap-4">
               {[
-                ["2-Wheelers", "Grace, Prince, Energy, Energy Pro, Ola and E4 only in the approved two-wheeler UI."],
+                ["2-Wheelers", "Grace, Prince, Energy, Energy Pro, XT1 and E4 only in the approved two-wheeler UI."],
                 ["Passenger 3-Wheelers", "Retained Buland passenger platforms for shared commercial routes."],
                 ["Cargo EVs", "Loader platforms for last-mile and local business movement."],
                 ["Proof required", "Dealer margins, ROI, territory, inventory and service economics should be confirmed by management before investor use."]

@@ -57,10 +57,10 @@ export const heroSlides: HeroSlide[] = [
     href: "/vehicles/energy-pro"
   },
   {
-    name: "Ola",
+    name: "XT1",
     copy: "Connected city mobility with a clean urban stance.",
     image: homeAsset("products/ola1.png"),
-    href: "/vehicles/ola"
+    href: "/vehicles/xt1"
   },
   {
     name: "E4",
@@ -156,7 +156,7 @@ export function AudienceJourneys() {
 const productImages: Record<string, string> = {
   grace: homeAsset("products/grace1.png"),
   "energy-pro": homeAsset("products/energypro1.png"),
-  ola: homeAsset("products/ola1.png"),
+  xt1: homeAsset("products/ola1.png"),
   e4: homeAsset("products/e42.png")
 };
 

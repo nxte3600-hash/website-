@@ -3,12 +3,18 @@ import { companyAddresses, companyDetails } from "@/lib/companyKnowledge";
 
 const explore = [
   ["Vehicles", "/vehicles"],
-  ["About", "/about-us"],
-  ["Manufacturing", "/manufacturing"],
-  ["Why EV", "/why-ev"],
+  ["For You", "/for-you"],
+  ["Business", "/business"],
   ["Technology", "/technology"],
+  ["About", "/about-us"],
+  ["Careers", "/careers"],
+  ["Contact", "/contact"],
+  ["Book Test Ride", "/test-ride"],
+  ["Manufacturing", "/manufacturing"],
   ["Sustainability", "/sustainability"],
-  ["Blog", "/blog"]
+  ["Blog", "/blog"],
+  ["Privacy", "/privacy"],
+  ["Terms", "/terms"]
 ];
 
 export function Footer() {
