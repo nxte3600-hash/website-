@@ -9,6 +9,7 @@
   --nxte-navy: #071a2f;
   --nxte-orange: #f36c21;
   --nxte-white: #ffffff;
+  --nxte-light: #f4f7fa;
   --nxte-ink: #102033;
   --nxte-muted: rgba(7, 26, 47, 0.68);
   --nxte-line: rgba(7, 26, 47, 0.16);
@@ -108,6 +109,32 @@ img {
   scroll-snap-align: start;
 }
 
+.about-shell {
+  margin-inline: auto;
+  width: min(100% - 40px, 1280px);
+}
+
+.about-section {
+  padding-block: clamp(56px, 7vw, 128px);
+}
+
+.about-section,
+.about-section article,
+.about-section img {
+  animation: about-reveal 650ms ease both;
+}
+
+@keyframes about-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .nxte-card {
   border: 1px solid var(--nxte-line);
   border-radius: 18px;
@@ -194,6 +221,12 @@ img {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .about-section,
+  .about-section article,
+  .about-section img {
+    animation: none !important;
   }
 }
 

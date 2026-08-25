@@ -18,6 +18,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isActive = (href: string, label: string) => label === "About" ? pathname === "/about-us" || pathname === "/about" : pathname === href;
 
   return (
     <header className={`${isHome ? "relative bg-white py-4" : "sticky top-3"} left-0 right-0 z-50 pointer-events-none`}>
@@ -29,7 +30,7 @@ export function Header() {
 
         <div className="hidden items-center gap-7 lg:flex">
           {navItems.map((item) => (
-            <Link key={`${item.href}-${item.label}`} href={item.href} className="text-xs font-extrabold text-[var(--nxte-navy)] transition hover:text-[var(--nxte-orange)]">
+            <Link key={`${item.href}-${item.label}`} href={item.href} className={`relative py-2 text-xs font-extrabold text-[var(--nxte-navy)] transition hover:text-[var(--nxte-orange)] ${isActive(item.href, item.label) ? "after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:bg-[var(--nxte-orange)]" : ""}`}>
               {item.label}
             </Link>
           ))}
