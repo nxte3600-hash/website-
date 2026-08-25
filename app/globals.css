@@ -27,7 +27,7 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: #f5f7fa;
+  background: #ffffff;
   color: var(--nxte-ink);
   font-family: "Manrope", Arial, sans-serif;
 }
@@ -60,7 +60,7 @@ img {
 
 .nxte-shell {
   margin-inline: auto;
-  width: min(100% - 32px, 1440px);
+  width: min(100% - 56px, 1320px);
 }
 
 .nxte-display {
@@ -77,7 +77,35 @@ img {
 }
 
 .nxte-section {
-  padding-block: clamp(72px, 8vw, 136px);
+  padding-block: clamp(58px, 6vw, 104px);
+}
+
+.home-section {
+  padding-block: clamp(38px, 5vw, 72px);
+}
+
+.home-round-control {
+  display: grid;
+  height: 46px;
+  width: 46px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 999px;
+  background: rgba(7, 26, 47, 0.12);
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+.home-scroll-row {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 4px;
+}
+
+.home-scroll-row > * {
+  scroll-snap-align: start;
 }
 
 .nxte-card {
@@ -172,5 +200,12 @@ img {
 @media (max-width: 640px) {
   .nxte-shell {
     width: min(100% - 24px, 1440px);
+  }
+
+  .home-scroll-row {
+    display: grid;
+    grid-auto-columns: minmax(210px, 72vw);
+    grid-auto-flow: column;
+    grid-template-columns: none;
   }
 }
