@@ -37,6 +37,7 @@ export type Vehicle = {
 const option2 = (name: string) => `/option2/${name}`;
 const vehicleImage = (name: string) => `/vehicles/${name}`;
 const gallery = (prefix: string, count: number) => Array.from({ length: count }, (_, index) => option2(`${prefix}${index + 1}.png`));
+const imageList = (prefix: string, count: number, extension = "png") => Array.from({ length: count }, (_, index) => option2(`${prefix}${index + 1}.${extension}`));
 
 const scooterParts: VehiclePart[] = [
   {
@@ -146,10 +147,9 @@ export const vehicles: Vehicle[] = [
     category: "2-Wheeler",
     brandLine: "NXTE Mobility",
     audience: "Office-going men and daily commute",
-    shortDescription: "Approved product photography is pending. The model remains in the catalogue without invented imagery or unverified specifications.",
-    posterImage: "",
-    gallery: [],
-    imagePending: true,
+    shortDescription: "A clean white scooter story for office commutes and everyday city riding. Final public specifications require approved product documentation.",
+    posterImage: option2("prince1.jpg"),
+    gallery: imageList("prince", 4, "jpg"),
     specs: {
       range: "Specification pending",
       speed: "Specification pending",
@@ -169,10 +169,9 @@ export const vehicles: Vehicle[] = [
     category: "2-Wheeler",
     brandLine: "NXTE Mobility",
     audience: "College students and city errands",
-    shortDescription: "Approved product photography is pending. Publish final specifications only after management-approved product documentation is available.",
-    posterImage: "",
-    gallery: [],
-    imagePending: true,
+    shortDescription: "A red city scooter story for campus routes, errands and practical daily movement. Publish final specifications only after management-approved product documentation is available.",
+    posterImage: option2("energy1.png"),
+    gallery: gallery("energy", 4),
     specs: {
       range: "Specification pending",
       speed: "Specification pending",
@@ -194,7 +193,7 @@ export const vehicles: Vehicle[] = [
     audience: "Everyday market and household journeys",
     shortDescription: "A practical scooter story for household routes, short errands and reliable daily movement. Final public specifications require approved documentation.",
     posterImage: option2("energypro1.png"),
-    gallery: gallery("energypro", 5),
+    gallery: gallery("energypro", 4),
     specs: {
       range: "Specification pending",
       speed: "Specification pending",

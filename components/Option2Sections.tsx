@@ -154,10 +154,12 @@ export function AudienceJourneys() {
 }
 
 const productImages: Record<string, string> = {
-  grace: homeAsset("products/grace1.png"),
-  "energy-pro": homeAsset("products/energypro1.png"),
+  grace: "/option2/grace1.png",
+  prince: "/option2/prince1.jpg",
+  energy: "/option2/energy1.png",
+  "energy-pro": "/option2/energypro1.png",
   xt1: "/option2/ola1.png",
-  e4: homeAsset("products/e42.png")
+  e4: "/option2/e42.png"
 };
 
 export function VehicleImage({ vehicle, className = "" }: { vehicle: Vehicle; className?: string }) {
