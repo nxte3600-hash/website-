@@ -19,7 +19,6 @@ const navItems = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
   const isActive = (href: string, label: string) => {
     if (label === "About") return pathname === "/about-us" || pathname === "/about";
     if (label === "For You") return pathname === "/for-you" || pathname === "/why-ev";
@@ -29,14 +28,14 @@ export function Header() {
   };
 
   return (
-    <header className={`${isHome ? "relative bg-white py-4" : "sticky top-3"} left-0 right-0 z-50 pointer-events-none`}>
+    <header className="sticky top-0 left-0 right-0 z-50 bg-white py-3 pointer-events-none">
       <nav className="nxte-shell pointer-events-auto flex h-[76px] items-center justify-between gap-5 rounded-[14px] border border-[rgba(7,26,47,0.1)] bg-white/95 px-5 shadow-[0_12px_32px_rgba(7,26,47,.12)] backdrop-blur-xl" aria-label="Primary navigation">
         <Link href="/" className="relative block h-[46px] w-[128px] shrink-0" aria-label="NXTE Mobility home">
           <Image
             src="/brand/logo.png"
             alt="NXTE Mobility"
             fill
-            priority={isHome}
+            priority
             sizes="128px"
             className="object-contain"
           />

@@ -23,6 +23,8 @@ import {
   ShoppingCart,
   SlidersHorizontal,
   Users,
+  Volume2,
+  VolumeX,
   Wrench,
   type LucideIcon
 } from "lucide-react";
@@ -34,6 +36,7 @@ type HeroSlide = {
   name: string;
   copy: string;
   image: string;
+  video?: string;
   href: string;
 };
 
@@ -42,6 +45,7 @@ export const heroSlides: HeroSlide[] = [
     name: "India in Motion",
     copy: "Personal scooters, passenger e-rickshaws and cargo EVs for every Indian journey.",
     image: homeAsset("sections/hero-india-in-motion.png"),
+    video: "/video/nxte-grace-promotion.mp4",
     href: "/test-ride"
   },
   {
@@ -72,8 +76,10 @@ export const heroSlides: HeroSlide[] = [
 
 export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
+  const [muted, setMuted] = useState(true);
   const active = slides[index] ?? slides[0];
   const goTo = (nextIndex: number) => setIndex((nextIndex + slides.length) % slides.length);
+  const showVideo = Boolean(active.video);
 
   return (
     <section
@@ -85,9 +91,35 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
       }}
     >
       <div className="relative min-h-[530px] overflow-hidden bg-[var(--nxte-navy)] text-white md:min-h-[620px]">
-        <Image key={active.image} src={active.image} alt="" fill priority={index === 0} className="object-cover" sizes="100vw" />
+        {showVideo ? (
+          <video
+            key={active.video}
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            poster={active.image}
+            aria-label="NXTE Grace promotional riding video"
+          >
+            <source src={active.video} type="video/mp4" />
+          </video>
+        ) : (
+          <Image key={active.image} src={active.image} alt="" fill priority={index === 0} className="object-cover" sizes="100vw" />
+        )}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,.94)_0%,rgba(255,255,255,.8)_34%,rgba(255,255,255,.08)_67%)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(7,26,47,.34),transparent)]" />
+        {showVideo ? (
+          <button
+            type="button"
+            className="absolute right-4 top-4 z-20 grid h-11 w-11 place-items-center rounded-full border border-white/70 bg-[rgba(7,26,47,.22)] text-white shadow-[0_12px_28px_rgba(7,26,47,.16)] backdrop-blur-md transition hover:bg-[rgba(7,26,47,.36)] md:right-8 md:top-8"
+            onClick={() => setMuted((value) => !value)}
+            aria-label={muted ? "Unmute hero video" : "Mute hero video"}
+            aria-pressed={!muted}
+          >
+            {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+          </button>
+        ) : null}
 
         <div className="nxte-shell relative z-10 flex min-h-[530px] flex-col justify-center pb-24 pt-12 md:min-h-[620px] md:pb-28 md:pt-16">
           <div className="max-w-[590px]">
