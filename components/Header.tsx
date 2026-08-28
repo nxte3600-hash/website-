@@ -28,7 +28,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 bg-white py-3 pointer-events-none">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-white py-2 pointer-events-none">
       <nav className="nxte-shell pointer-events-auto flex h-[76px] items-center justify-between gap-5 rounded-[14px] border border-[rgba(7,26,47,0.1)] bg-white/95 px-5 shadow-[0_12px_32px_rgba(7,26,47,.12)] backdrop-blur-xl" aria-label="Primary navigation">
         <Link href="/" className="relative block h-[46px] w-[128px] shrink-0" aria-label="NXTE Mobility home">
           <Image

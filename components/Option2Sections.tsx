@@ -107,7 +107,6 @@ export function HeroCarousel({ slides = heroSlides }: { slides?: HeroSlide[] }) 
         ) : (
           <Image key={active.image} src={active.image} alt="" fill priority={index === 0} className="object-cover" sizes="100vw" />
         )}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,.94)_0%,rgba(255,255,255,.8)_34%,rgba(255,255,255,.08)_67%)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(7,26,47,.34),transparent)]" />
         {showVideo ? (
           <button
